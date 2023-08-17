@@ -1,5 +1,7 @@
 import { useState } from 'react';
-// import { useFetcher } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import callApi from '../services/api';
+import { createToken } from '../../Slices/redux';
 
 function SignIn({
   icon,
@@ -10,12 +12,10 @@ function SignIn({
   tick_text,
   text_button,
 }) {
-  // // eslint-disable-next-line no-unused-vars
-  // const fetch = useFetcher;
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [token, setToken] = useState('');
 
   function handleInputemailChanges(e) {
     setEmail(e.target.value);
@@ -25,22 +25,10 @@ function SignIn({
   }
 
   async function handlClick(e) {
-    e.preventDefault();
-
-    let user = {
-      email: email,
-      password: password,
-    };
-    let response = await fetch('http://localhost:3001/api/v1/user/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-      },
-      body: JSON.stringify(user),
-    });
-    const responseBody = await response.json();
-    let status = responseBody.status;
-    setToken(responseBody.body.token);
+    const response = await callApi(e, email, password);
+    if (response.token) {
+      dispatch(createToken(response.token));
+    }
   }
 
   return (
