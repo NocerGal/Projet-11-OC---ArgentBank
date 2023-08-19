@@ -1,27 +1,40 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 
-const userSlice = createSlice({
+const userInfosSlice = createSlice({
   name: 'user',
   initialState: { token: null, userName: null },
   reducers: {
     saveToken: (state, action) => {
-      state.token = action.payload;
+      const newToken = {
+        token: action.payload,
+      };
+      state.token = newToken;
     },
     saveUserName: (state, action) => {
-      state.userName = action.payload;
+      const newUserName = {
+        username: action.payload,
+      };
+      state.userName = newUserName;
     },
   },
 });
 
-export const createToken = (token) => {
+export const store = configureStore({
+  reducer: {
+    user: userInfosSlice.reducer,
+  },
+});
+
+export const stateNewToken = (token) => {
   return {
-    type: 'createSlice/saveToken',
+    type: 'user/saveToken',
     payload: token,
   };
 };
 
-export const store = configureStore({
-  reducer: {
-    user: userSlice.reducer,
-  },
-});
+export const stateNewUserName = (newName) => {
+  return {
+    type: 'user/saveUserName',
+    payload: newName,
+  };
+};
