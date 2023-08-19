@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import callApi from '../services/api';
-import { createToken } from '../../Slices/redux';
+import { getToken } from '../services/api';
+
+import signInError from '../../errors/signInError';
+import { stateNewToken } from '../../Slices/redux';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function SignIn({
   icon,
@@ -12,22 +15,21 @@ function SignIn({
   tick_text,
   text_button,
 }) {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  function handleInputemailChanges(e) {
-    setEmail(e.target.value);
-  }
-  function handleInputPasswordChanges(e) {
-    setPassword(e.target.value);
-  }
-
   async function handlClick(e) {
-    const response = await callApi(e, email, password);
-    if (response.token) {
-      dispatch(createToken(response.token));
+    e.preventDefault();
+    try {
+      const token = await getToken(email, password);
+      dispatch(stateNewToken(token));
+      navigate(`/user/${encodeURIComponent(token)}`);
+    } catch (error) {
+      signInError();
+      console.log('Email ou mot de passe incorrect', error);
     }
   }
 
@@ -43,7 +45,7 @@ function SignIn({
           <input
             type="text"
             id="emailname"
-            onChange={handleInputemailChanges}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div className="input-wrapper">
@@ -51,7 +53,7 @@ function SignIn({
           <input
             type="password"
             id="password"
-            onChange={handleInputPasswordChanges}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <div className="input-remember">

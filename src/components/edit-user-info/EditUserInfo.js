@@ -1,4 +1,8 @@
+import { useParams } from 'react-router-dom';
+
 function EditUserInfo({ form_title, save_button, cancel_button, display }) {
+  const { id } = useParams();
+
   return (
     <>
       <div className={display ? 'form-user' : 'form-user__hide'}>
