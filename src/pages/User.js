@@ -2,15 +2,12 @@ import NavigationHeader from '../components/header/NavigationHeader';
 import Account from '../components/account/Account';
 import EditUserInfo from '../components/edit-user-info/EditUserInfo';
 import { useState } from 'react';
-// import { postGetProfile } from '../components/services/api';
+import { useSelector } from 'react-redux';
 
 function User() {
   const [hideForm, setHideForm] = useState(false);
-
-  // let token =
-  //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZDllOWRjNDY2MThhM2Y1MDk1MDM4NCIsImlhdCI6MTY5MjUwMjE2NCwiZXhwIjoxNjkyNTg4NTY0fQ.b3N4bARGPFjatslWvKraoOxn0tX3GnWtn5cFmmHIFyc';
-
-  // postGetProfile(token);
+  const firstName = useSelector((state) => state.user.firstName.firstname);
+  const lastName = useSelector((state) => state.user.lastName.lastname);
 
   return (
     <>
@@ -19,7 +16,7 @@ function User() {
         <div className="header">
           <h1>
             Welcome back
-            <br /> {'Tony Jarvis'}!
+            <br /> {firstName} {lastName}!
           </h1>
           <button
             className="edit-button"

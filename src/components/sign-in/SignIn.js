@@ -1,9 +1,19 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { getToken, getUserName } from '../services/api';
+import {
+  getFirstName,
+  getLastName,
+  getToken,
+  getUserName,
+} from '../services/api';
 
 import signInError from '../../errors/signInError';
-import { stateNewToken } from '../../Slices/redux';
+import {
+  stateFirstName,
+  stateLastName,
+  stateToken,
+  stateUserName,
+} from '../../Slices/redux';
 import { useNavigate } from 'react-router-dom';
 
 function SignIn({
@@ -26,7 +36,12 @@ function SignIn({
     try {
       const token = await getToken(email, password);
       const userName = await getUserName(token);
-      dispatch(stateNewToken(token));
+      const firstName = await getFirstName(token);
+      const lastName = await getLastName(token);
+      dispatch(stateToken(token));
+      dispatch(stateUserName(userName));
+      dispatch(stateFirstName(firstName));
+      dispatch(stateLastName(lastName));
       navigate(`/user/${userName}`);
     } catch (error) {
       signInError();

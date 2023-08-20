@@ -61,6 +61,18 @@ export async function getUserName(token) {
   const userName = responseBody.body.userName;
   return userName;
 }
+export async function getFirstName(token) {
+  const response = await postGetProfile(token);
+  const responseBody = await response.json();
+  const userName = responseBody.body.firstName;
+  return userName;
+}
+export async function getLastName(token) {
+  const response = await postGetProfile(token);
+  const responseBody = await response.json();
+  const userName = responseBody.body.lastName;
+  return userName;
+}
 
 // PUT
 async function putChangeUserName(newUserName) {
