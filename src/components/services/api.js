@@ -35,6 +35,18 @@ async function postSignUp(email, password, firstName, lastName, userName) {
   return response;
 }
 
+export async function postGetProfile(token) {
+  let response = await fetch(`${baseUrl}user/profile`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token,
+    },
+  });
+
+  return response;
+}
+
 // GET
 export async function getToken(email, password) {
   const response = await postAccessToToken(email, password);
@@ -43,10 +55,17 @@ export async function getToken(email, password) {
   return token;
 }
 
-// POST
-async function putChangeUserName() {
-  let newUserName = {
-    newUserName: newUserName,
+export async function getUserName(token) {
+  const response = await postGetProfile(token);
+  const responseBody = await response.json();
+  const userName = responseBody.body.userName;
+  return userName;
+}
+
+// PUT
+async function putChangeUserName(newUserName) {
+  let userName = {
+    userName: newUserName,
   };
 
   fetch(`${baseUrl}/user/profile`, {
@@ -54,6 +73,6 @@ async function putChangeUserName() {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(newUserName), //
+    body: JSON.stringify(userName), //
   });
 }

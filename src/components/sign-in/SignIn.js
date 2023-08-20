@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { getToken } from '../services/api';
+import { getToken, getUserName } from '../services/api';
 
 import signInError from '../../errors/signInError';
 import { stateNewToken } from '../../Slices/redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function SignIn({
   icon,
@@ -25,8 +25,9 @@ function SignIn({
     e.preventDefault();
     try {
       const token = await getToken(email, password);
+      const userName = await getUserName(token);
       dispatch(stateNewToken(token));
-      navigate(`/user/${encodeURIComponent(token)}`);
+      navigate(`/user/${userName}`);
     } catch (error) {
       signInError();
       console.log('Email ou mot de passe incorrect', error);

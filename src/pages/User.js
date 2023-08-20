@@ -2,9 +2,15 @@ import NavigationHeader from '../components/header/NavigationHeader';
 import Account from '../components/account/Account';
 import EditUserInfo from '../components/edit-user-info/EditUserInfo';
 import { useState } from 'react';
+// import { postGetProfile } from '../components/services/api';
 
 function User() {
   const [hideForm, setHideForm] = useState(false);
+
+  // let token =
+  //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZDllOWRjNDY2MThhM2Y1MDk1MDM4NCIsImlhdCI6MTY5MjUwMjE2NCwiZXhwIjoxNjkyNTg4NTY0fQ.b3N4bARGPFjatslWvKraoOxn0tX3GnWtn5cFmmHIFyc';
+
+  // postGetProfile(token);
 
   return (
     <>
