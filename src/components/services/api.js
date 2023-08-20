@@ -75,16 +75,18 @@ export async function getLastName(token) {
 }
 
 // PUT
-async function putChangeUserName(newUserName) {
+export async function putChangeUserName(token, newUserName) {
   let userName = {
     userName: newUserName,
   };
 
-  fetch(`${baseUrl}/user/profile`, {
+  let response = await fetch(`${baseUrl}user/profile`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json;charset=utf-8',
+      Authorization: 'Bearer ' + token,
     },
-    body: JSON.stringify(userName), //
+    body: JSON.stringify(userName),
   });
+  return response;
 }
