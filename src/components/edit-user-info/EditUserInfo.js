@@ -1,7 +1,16 @@
-import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { putChangeUserName } from '../services/api';
+import { stateUserName } from '../../Slices/redux';
 
 function EditUserInfo({ form_title, save_button, cancel_button, display }) {
-  const { id } = useParams();
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.user.token.token);
+  const newUsername = 'Luc';
+  const handleClickPut = (e) => {
+    e.preventDefault();
+    putChangeUserName(token, newUsername);
+    dispatch(stateUserName(newUsername));
+  };
 
   return (
     <>
@@ -36,7 +45,7 @@ function EditUserInfo({ form_title, save_button, cancel_button, display }) {
             />
           </div>
           <div className="buttons">
-            <button>{save_button}</button>
+            <button onClick={handleClickPut}>{save_button}</button>
             <button>{cancel_button}</button>
           </div>
         </form>
