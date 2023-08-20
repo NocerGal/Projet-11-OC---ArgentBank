@@ -5,8 +5,13 @@ import {
   faUserCircle,
   faRightFromBracket,
 } from '@fortawesome/free-solid-svg-icons';
+// Redux
+import { useDispatch } from 'react-redux';
+import { resetUser } from '../../Slices/redux';
 
 function NavigationHeader({ name }) {
+  const dispatch = useDispatch();
+
   return (
     <nav className="main-nav">
       <Link className="main-nav-logo" to="/">
@@ -22,7 +27,13 @@ function NavigationHeader({ name }) {
           <FontAwesomeIcon icon={faUserCircle} />
           {name}
         </Link>
-        <Link className="main-nav-item" to="/sign-in">
+        <Link
+          className="main-nav-item"
+          to="/sign-in"
+          onClick={() => {
+            dispatch(resetUser());
+          }}
+        >
           <FontAwesomeIcon icon={faRightFromBracket} />
           Log out
         </Link>
