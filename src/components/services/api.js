@@ -90,3 +90,66 @@ export async function putChangeUserName(token, newUserName) {
   });
   return response;
 }
+
+// const baseUrl = 'http://localhost:3001/api/v1/';
+
+// // Fonction de base pour effectuer des requêtes
+// async function apiRequest(endpoint, method, body, token) {
+//   const headers = {
+//     'Content-Type': 'application/json;charset=utf-8',
+//   };
+
+//   if (token) {
+//     headers['Authorization'] = 'Bearer ' + token;
+//   }
+
+//   const response = await fetch(`${baseUrl}${endpoint}`, {
+//     method,
+//     headers,
+//     body: JSON.stringify(body),
+//   });
+
+//   if (!response.ok) {
+//     throw new Error('Network response was not ok');
+//   }
+
+//   return response.json();
+// }
+
+// // Fonctions pour effectuer des actions spécifiques
+// export async function login(email, password) {
+//   return apiRequest('user/login', 'POST', { email, password });
+// }
+
+// export async function signUp(userData) {
+//   return apiRequest('user/signup', 'POST', userData);
+// }
+
+// export async function getProfile(token) {
+//   return apiRequest('user/profile', 'POST', null, token);
+// }
+
+// export async function updateUserName(token, newUserName) {
+//   return apiRequest('user/profile', 'PUT', { userName: newUserName }, token);
+// }
+
+// // Fonctions utilitaires pour extraire des données spécifiques
+// export async function fetchToken(email, password) {
+//   const responseBody = await login(email, password);
+//   return responseBody.body.token;
+// }
+
+// export async function fetchUserName(token) {
+//   const responseBody = await getProfile(token);
+//   return responseBody.body.userName;
+// }
+
+// export async function fetchFirstName(token) {
+//   const responseBody = await getProfile(token);
+//   return responseBody.body.firstName;
+// }
+
+// export async function fetchLastName(token) {
+//   const responseBody = await getProfile(token);
+//   return responseBody.body.lastName;
+// }

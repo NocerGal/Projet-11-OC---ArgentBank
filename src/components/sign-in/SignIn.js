@@ -1,20 +1,24 @@
+// Bibliothèques
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+// Services
 import {
   getFirstName,
   getLastName,
   getToken,
   getUserName,
 } from '../services/api';
-
 import signInError from '../../errors/signInError';
+
+// Redux
 import {
   stateFirstName,
   stateLastName,
   stateToken,
   stateUserName,
 } from '../../Slices/redux';
-import { useNavigate } from 'react-router-dom';
 
 function SignIn({
   icon,
@@ -31,13 +35,15 @@ function SignIn({
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  async function handlClick(e) {
+  // Handlers
+  async function handleClick(e) {
     e.preventDefault();
     try {
       const token = await getToken(email, password);
       const userName = await getUserName(token);
       const firstName = await getFirstName(token);
       const lastName = await getLastName(token);
+
       dispatch(stateToken(token));
       dispatch(stateUserName(userName));
       dispatch(stateFirstName(firstName));
@@ -49,6 +55,7 @@ function SignIn({
     }
   }
 
+  // JSX
   return (
     <>
       <i className="fa fa-email-circle sign-in-icon">
@@ -76,7 +83,7 @@ function SignIn({
           <input type="checkbox" id="remember-me" />
           <label htmlFor="remember-me">{tick_text}</label>
         </div>
-        <button type="submit" className="sign-in-button" onClick={handlClick}>
+        <button type="submit" className="sign-in-button" onClick={handleClick}>
           {text_button}
         </button>
       </form>

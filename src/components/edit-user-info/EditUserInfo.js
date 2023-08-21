@@ -1,17 +1,31 @@
+// Bibliothèques externes
 import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+// Imports locaux
 import { putChangeUserName } from '../services/api';
 import { stateUserName } from '../../Slices/redux';
 
 function EditUserInfo({ form_title, save_button, cancel_button, display }) {
+  // Hooks
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [userName, setUserName] = useState('');
   const token = useSelector((state) => state.user.token.token);
-  const newUsername = 'Luc';
+
+  // Handlers
+  const handleChangeUserName = (e) => {
+    setUserName(e.target.value);
+  };
   const handleClickPut = (e) => {
     e.preventDefault();
-    putChangeUserName(token, newUsername);
-    dispatch(stateUserName(newUsername));
+    putChangeUserName(token, userName);
+    dispatch(stateUserName(userName));
+    navigate(`/user/${userName}`);
   };
 
+  // JSX
   return (
     <>
       <div className={display ? 'form-user' : 'form-user__hide'}>
@@ -24,10 +38,11 @@ function EditUserInfo({ form_title, save_button, cancel_button, display }) {
               id="user_name"
               name="user_name"
               placeholder="Your user name..."
+              onChange={handleChangeUserName}
             />
           </div>
           <div>
-            <label htmlFor="first_name">first name:</label>
+            <label htmlFor="first_name">First name:</label>
             <input
               type="text"
               id="first_name"
@@ -36,7 +51,7 @@ function EditUserInfo({ form_title, save_button, cancel_button, display }) {
             />
           </div>
           <div>
-            <label htmlFor="last_name">last name:</label>
+            <label htmlFor="last_name">Last name:</label>
             <input
               type="text"
               id="last_name"
