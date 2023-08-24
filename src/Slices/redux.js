@@ -5,8 +5,8 @@ const userInfosSlice = createSlice({
   initialState: {
     token: null,
     userName: localStorage.getItem('userName'),
-    firstName: null,
-    lastName: null,
+    firstName: localStorage.getItem('firstName'),
+    lastName: localStorage.getItem('lastName'),
   },
   reducers: {
     saveToken: (state, action) => {
