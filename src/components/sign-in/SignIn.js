@@ -37,6 +37,7 @@ function SignIn({
   useEffect(() => {
     localStorage.clear();
   }, []);
+
   // Handlers
   async function handleClick(e) {
     e.preventDefault();
@@ -50,10 +51,12 @@ function SignIn({
       dispatch(stateUserName(userName));
       dispatch(stateFirstName(firstName));
       dispatch(stateLastName(lastName));
+
       localStorage.setItem('token', token);
       localStorage.setItem('userName', userName);
       localStorage.setItem('firstName', firstName);
       localStorage.setItem('lastName', lastName);
+
       navigate(`/user/${userName}`);
     } catch (error) {
       signInError();
