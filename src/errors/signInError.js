@@ -1,15 +1,20 @@
 function signInError() {
-  const errorContainer = document.createElement('div');
-  const errorMessage = document.createElement('span');
   const secondInputWrapper = document.querySelector(
     '.input-wrapper:nth-child(2)'
   );
+  const containerErrorClassName = 'error-container';
+  const errorTextMessage = 'Votre email ou mot de passe est incorrect';
 
-  errorContainer.classList = 'error-container';
-  errorMessage.innerText = 'Votre email ou mot de passe est incorrect';
-
-  errorContainer.appendChild(errorMessage);
-
-  secondInputWrapper.after(errorContainer);
+  if (
+    secondInputWrapper.nextSibling &&
+    !secondInputWrapper.nextSibling.classList.contains(containerErrorClassName)
+  ) {
+    const errorContainer = document.createElement('div');
+    const errorMessage = document.createElement('span');
+    errorContainer.className = containerErrorClassName;
+    errorMessage.textContent = errorTextMessage;
+    errorContainer.appendChild(errorMessage);
+    secondInputWrapper.insertAdjacentElement('afterend', errorContainer);
+  }
 }
 export default signInError;
