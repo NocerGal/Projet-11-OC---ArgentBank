@@ -4,7 +4,7 @@ const userInfosSlice = createSlice({
   name: 'user',
   initialState: {
     token: null,
-    userName: null,
+    userName: localStorage.getItem('userName'),
     firstName: null,
     lastName: null,
   },

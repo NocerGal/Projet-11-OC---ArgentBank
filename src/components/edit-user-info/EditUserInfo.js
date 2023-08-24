@@ -7,12 +7,20 @@ import { useNavigate } from 'react-router-dom';
 import { putChangeUserName } from '../services/api';
 import { stateUserName } from '../../Slices/redux';
 
-function EditUserInfo({ form_title, save_button, cancel_button, display }) {
+function EditUserInfo({
+  form_title,
+  save_button,
+  cancel_button,
+  display,
+  firstName,
+  lastName,
+  userNameProps,
+}) {
   // Hooks
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [userName, setUserName] = useState('');
-  const token = useSelector((state) => state.user.token.token);
+  const [userName, setUserName] = useState(localStorage.getItem('userName'));
+  const token = localStorage.getItem('token');
 
   // Handlers
   const handleChangeUserName = (e) => {
@@ -22,6 +30,7 @@ function EditUserInfo({ form_title, save_button, cancel_button, display }) {
     e.preventDefault();
     putChangeUserName(token, userName);
     dispatch(stateUserName(userName));
+    localStorage.setItem('userName', userName);
     navigate(`/user/${userName}`);
   };
 
@@ -37,7 +46,7 @@ function EditUserInfo({ form_title, save_button, cancel_button, display }) {
               type="text"
               id="user_name"
               name="user_name"
-              placeholder="Your user name..."
+              placeholder={userName}
               onChange={handleChangeUserName}
             />
           </div>
@@ -47,7 +56,8 @@ function EditUserInfo({ form_title, save_button, cancel_button, display }) {
               type="text"
               id="first_name"
               name="first_name"
-              placeholder="Your first name..."
+              placeholder={firstName}
+              disabled={true}
             />
           </div>
           <div>
@@ -56,7 +66,8 @@ function EditUserInfo({ form_title, save_button, cancel_button, display }) {
               type="text"
               id="last_name"
               name="last_name"
-              placeholder="Your last name..."
+              placeholder={lastName}
+              disabled={true}
             />
           </div>
           <div className="buttons">

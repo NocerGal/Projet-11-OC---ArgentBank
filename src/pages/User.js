@@ -1,17 +1,29 @@
 import NavigationHeader from '../components/header/NavigationHeader';
 import Account from '../components/account/Account';
 import EditUserInfo from '../components/edit-user-info/EditUserInfo';
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { stateUserName } from '../Slices/redux';
 
 function User() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const userNameFromStorage = localStorage.getItem('userName');
+    if (userNameFromStorage) {
+      dispatch(stateUserName(userNameFromStorage));
+    }
+  }, [dispatch]);
+
   const [hideForm, setHideForm] = useState(false);
-  const firstName = useSelector((state) => state.user.firstName.firstname);
-  const lastName = useSelector((state) => state.user.lastName.lastname);
+  const userName = useSelector((state) => state.user.userName.username);
+  // const userName = localStorage.getItem('userName');
+  const firstName = localStorage.getItem('firstName');
+  const lastName = localStorage.getItem('lastName');
 
   return (
     <>
-      <NavigationHeader name="Tony" />
+      <NavigationHeader name={userName} />
       <main className="main bg-dark">
         <div className="header">
           <h1>
@@ -29,6 +41,9 @@ function User() {
             save_button="save"
             cancel_button="cancel"
             display={hideForm}
+            userNameProps={userName}
+            firstName={firstName}
+            lastName={lastName}
           />
         </div>
         <h2 className="sr-only">Accounts</h2>

@@ -1,5 +1,5 @@
 // Bibliothèques
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -31,10 +31,12 @@ function SignIn({
 }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
   // Handlers
   async function handleClick(e) {
     e.preventDefault();
@@ -48,6 +50,10 @@ function SignIn({
       dispatch(stateUserName(userName));
       dispatch(stateFirstName(firstName));
       dispatch(stateLastName(lastName));
+      localStorage.setItem('token', token);
+      localStorage.setItem('userName', userName);
+      localStorage.setItem('firstName', firstName);
+      localStorage.setItem('lastName', lastName);
       navigate(`/user/${userName}`);
     } catch (error) {
       signInError();

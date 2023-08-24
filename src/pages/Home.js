@@ -4,8 +4,13 @@ import Card from '../components/card/Card';
 import ICONE_CHAT from '../assets/img/icon-chat.png';
 import ICONE_MONEY from '../assets/img/icon-money.png';
 import ICONE_SECURITY from '../assets/img/icon-security.png';
+import { useEffect } from 'react';
 
 function Home() {
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
+
   return (
     <>
       <Navigation />

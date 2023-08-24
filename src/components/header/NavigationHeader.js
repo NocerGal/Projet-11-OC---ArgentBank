@@ -32,6 +32,7 @@ function NavigationHeader({ name }) {
           to="/sign-in"
           onClick={() => {
             dispatch(resetUser());
+            localStorage.clear();
           }}
         >
           <FontAwesomeIcon icon={faRightFromBracket} />

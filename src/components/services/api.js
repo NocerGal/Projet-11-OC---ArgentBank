@@ -17,24 +17,6 @@ async function postAccessToToken(email, password) {
   return response;
 }
 
-async function postSignUp(email, password, firstName, lastName, userName) {
-  let newUser = {
-    email: email,
-    password: password,
-    firstName: firstName,
-    lastName: lastName,
-    userName: userName,
-  };
-  let response = await fetch(`${baseUrl}user/signup`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8',
-    },
-    body: JSON.stringify(newUser),
-  });
-  return response;
-}
-
 export async function postGetProfile(token) {
   let response = await fetch(`${baseUrl}user/profile`, {
     method: 'POST',
@@ -64,14 +46,14 @@ export async function getUserName(token) {
 export async function getFirstName(token) {
   const response = await postGetProfile(token);
   const responseBody = await response.json();
-  const userName = responseBody.body.firstName;
-  return userName;
+  const firstName = responseBody.body.firstName;
+  return firstName;
 }
 export async function getLastName(token) {
   const response = await postGetProfile(token);
   const responseBody = await response.json();
-  const userName = responseBody.body.lastName;
-  return userName;
+  const lastName = responseBody.body.lastName;
+  return lastName;
 }
 
 // PUT
