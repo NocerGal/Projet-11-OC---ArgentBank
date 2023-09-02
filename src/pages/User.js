@@ -13,7 +13,7 @@ function User() {
     if (userNameFromStorage) {
       dispatch(saveUserName(userNameFromStorage));
     }
-  }, [dispatch]);
+  }, []);
 
   const [hideForm, setHideForm] = useState(false);
   const userName = useSelector((state) => state.user.userName.username);

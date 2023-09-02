@@ -13,7 +13,7 @@ export default function Routers() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/sign-in" element={<SignInPage />} />
-          <Route path="/user/:token" element={<User />} />
+          <Route path="/user/:userName" element={<User />} />
           <Route path="/*" element={<ErrorPage />} />
         </Routes>
         <Footer />
