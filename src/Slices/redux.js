@@ -1,5 +1,6 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 
+// action => une voiture qui est envoyé dans redux pour chercher le payload (qui sera le paramètre utilisé dans le dispatch), puis de revenir et passer le nouveau paramètre par le payload.
 const userInfosSlice = createSlice({
   name: 'user',
   initialState: {
@@ -10,28 +11,16 @@ const userInfosSlice = createSlice({
   },
   reducers: {
     saveToken: (state, action) => {
-      const newToken = {
-        token: action.payload,
-      };
-      state.token = newToken;
+      state.token = action.payload;
     },
     saveUserName: (state, action) => {
-      const newUserName = {
-        username: action.payload,
-      };
-      state.userName = newUserName;
+      state.userName = action.payload;
     },
     saveFirstName: (state, action) => {
-      const newFirstName = {
-        firstname: action.payload,
-      };
-      state.firstName = newFirstName;
+      state.firstName = action.payload;
     },
     saveLastName: (state, action) => {
-      const newLastName = {
-        lastname: action.payload,
-      };
-      state.lastName = newLastName;
+      state.lastName = action.payload;
     },
 
     resetUser: (state) => {
@@ -58,31 +47,3 @@ export const store = configureStore({
     user: userInfosSlice.reducer,
   },
 });
-
-export const stateToken = (token) => {
-  return {
-    type: 'user/saveToken',
-    payload: token,
-  };
-};
-
-export const stateUserName = (newUserName) => {
-  return {
-    type: 'user/saveUserName',
-    payload: newUserName,
-  };
-};
-
-export const stateFirstName = (newFirstName) => {
-  return {
-    type: 'user/saveFirstName',
-    payload: newFirstName,
-  };
-};
-
-export const stateLastName = (newLastName) => {
-  return {
-    type: 'user/saveLastName',
-    payload: newLastName,
-  };
-};

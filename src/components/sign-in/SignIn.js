@@ -14,10 +14,10 @@ import signInError from '../../errors/signInError';
 
 // Redux
 import {
-  stateFirstName,
-  stateLastName,
-  stateToken,
-  stateUserName,
+  saveFirstName,
+  saveLastName,
+  saveToken,
+  saveUserName,
 } from '../../Slices/redux';
 
 function SignIn({
@@ -47,10 +47,10 @@ function SignIn({
       const firstName = await getFirstName(token);
       const lastName = await getLastName(token);
 
-      dispatch(stateToken(token));
-      dispatch(stateUserName(userName));
-      dispatch(stateFirstName(firstName));
-      dispatch(stateLastName(lastName));
+      dispatch(saveToken(token));
+      dispatch(saveUserName(userName));
+      dispatch(saveFirstName(firstName));
+      dispatch(saveLastName(lastName));
 
       localStorage.setItem('token', token);
       localStorage.setItem('userName', userName);

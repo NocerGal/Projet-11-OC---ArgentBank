@@ -1,11 +1,11 @@
 // Bibliothèques externes
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // Imports locaux
 import { putChangeUserName } from '../services/api';
-import { stateUserName } from '../../Slices/redux';
+import { saveUserName } from '../../Slices/redux';
 
 function EditUserInfo({
   form_title,
@@ -14,7 +14,6 @@ function EditUserInfo({
   display,
   firstName,
   lastName,
-  userNameProps,
 }) {
   // Hooks
   const dispatch = useDispatch();
@@ -29,7 +28,7 @@ function EditUserInfo({
   const handleClickPut = (e) => {
     e.preventDefault();
     putChangeUserName(token, userName);
-    dispatch(stateUserName(userName));
+    dispatch(saveUserName(userName));
     localStorage.setItem('userName', userName);
     navigate(`/user/${userName}`);
   };

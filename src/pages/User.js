@@ -3,7 +3,7 @@ import Account from '../components/account/Account';
 import EditUserInfo from '../components/edit-user-info/EditUserInfo';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { stateUserName } from '../Slices/redux';
+import { saveUserName } from '../Slices/redux';
 
 function User() {
   const dispatch = useDispatch();
@@ -11,13 +11,12 @@ function User() {
   useEffect(() => {
     const userNameFromStorage = localStorage.getItem('userName');
     if (userNameFromStorage) {
-      dispatch(stateUserName(userNameFromStorage));
+      dispatch(saveUserName(userNameFromStorage));
     }
   }, [dispatch]);
 
   const [hideForm, setHideForm] = useState(false);
   const userName = useSelector((state) => state.user.userName.username);
-  // const userName = localStorage.getItem('userName');
   const firstName = localStorage.getItem('firstName');
   const lastName = localStorage.getItem('lastName');
 
@@ -47,6 +46,18 @@ function User() {
           />
         </div>
         <h2 className="sr-only">Accounts</h2>
+        <Account
+          title="Argent Bank Checking (x8349)"
+          amount="$2,082.79"
+          description="Available Balance"
+          button="View transactions"
+        />
+        <Account
+          title="Argent Bank Checking (x8349)"
+          amount="$2,082.79"
+          description="Available Balance"
+          button="View transactions"
+        />
         <Account
           title="Argent Bank Checking (x8349)"
           amount="$2,082.79"
